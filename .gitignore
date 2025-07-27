@@ -43,3 +43,5 @@ coverage.xml
 .vscode/
 *.swp
 *.swo
+
+minikube-linux-amd64
