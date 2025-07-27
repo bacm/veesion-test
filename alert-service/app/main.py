@@ -1,9 +1,9 @@
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
 import aio_pika
 import json
 import os
 import logging
+from app.models import Alert
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -18,12 +18,6 @@ RABBITMQ_PASS = os.getenv("RABBITMQ_PASS", "guest")
 RABBITMQ_URL = f"amqp://{RABBITMQ_USER}:{RABBITMQ_PASS}@{RABBITMQ_HOST}:{RABBITMQ_PORT}/"
 
 app = FastAPI()
-
-class Alert(BaseModel):
-    uid: str
-    video: str
-    timestamp: float
-    store: str
 
 # Global connection and channel
 connection: aio_pika.RobustConnection = None

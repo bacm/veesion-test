@@ -1,8 +1,12 @@
+from datetime import datetime
+
 import json
 import os
 import asyncio
 import aiohttp
 import aio_pika
+
+from app.db import save_video
 
 RABBITMQ_HOST = os.getenv("RABBITMQ_HOST", "rabbitmq")
 RABBITMQ_PORT = os.getenv("RABBITMQ_PORT", "5672")
@@ -59,13 +63,15 @@ async def process_alert(message: aio_pika.IncomingMessage):
             alert = json.loads(message.body)
             print(f"[+] Received alert: {alert}")
             width, height = await get_video_resolution_remote(alert["video"])
-            print(f"    Video resolution: {width}x{height}")
+            await save_video(alert["uid"], alert["video"], width, height)
+            store = alert.get("store", "unknown")
+            now = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")   
+            print(f"[Notification] Store: {store} | Date: {now} | Resolution: {width}x{height}")
         except Exception as e:
-            print(f"[!] Error processing alert: {e}")
+            print(f"Error processing alert: {e}")
 
 
 async def main():
-    # Connect to RabbitMQ
     connection = await aio_pika.connect_robust(RABBITMQ_URL)
     async with connection:
         channel = await connection.channel()

@@ -40,14 +40,6 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
-          volumeMounts:
-            - name: videos-volume
-              mountPath: /usr/share/nginx/html/videos
-      volumes:
-        - name: videos-volume
-          hostPath:
-            path: /mnt/data/videos
-            type: Directory
 ---
 # Nginx Service
 apiVersion: v1
@@ -91,9 +83,9 @@ spec:
             - name: POSTGRES_USER
               value: veesion
             - name: POSTGRES_PASSWORD
-              value: password
+              value: secret
             - name: POSTGRES_DB
-              value: alert_db
+              value: veesion
           volumeMounts:
             - name: pgdata
               mountPath: /var/lib/postgresql/data
