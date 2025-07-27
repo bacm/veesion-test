@@ -1,0 +1,11 @@
+[project]
+name = "alert-service"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "aio-pika>=9.5.5",
+    "fastapi>=0.116.1",
+    "uvicorn>=0.35.0",
+]
