@@ -1,5 +1,5 @@
 # Coding exercice
-Il s'agit juste d'une exercice.
+Il s'agit juste d'un exercice.
 
 Ce projet est une plateforme de traitement d’alertes vidéos. Elle permet de :
 - Recevoir des alertes via une API FastAPI (alert-service)
