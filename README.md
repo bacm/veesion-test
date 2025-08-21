@@ -1,8 +1,11 @@
-# Description
+# Coding exercice
+Il s'agit juste d'une exercice.
+
 Ce projet est une plateforme de traitement d’alertes vidéos. Elle permet de :
 - Recevoir des alertes via une API FastAPI (alert-service)
 - Publier des messages dans RabbitMQ.
 - Traiter les alertes via des workers qui traitent les vidéos
+
 
 # Choix de l'architecture
 Pour gérer les alertes, il y avait deux options : soit un seul pod qui traite plusieurs messages en parallèle avec asyncio, soit plusieurs pods qui se partagent la charge. Une approche hybride a été prise.
